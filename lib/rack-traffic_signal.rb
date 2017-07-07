@@ -1,0 +1,1 @@
+require 'rack/traffic_signal'

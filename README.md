@@ -32,6 +32,15 @@ Generator places initializer template and sample maintenance page.
 
 Modify `config/initializers/rack_traffic_signal.rb` .
 
+And add below to your `application.rb`
+
+```ruby:application.rb
+require 'rack/traffic_signal'
+...
+  config.middleware.use(Rack::TrafficSignal::Middleware)
+...
+```
+
 ### Not Rails
 
 Insert Rack::TrafficSignal::Middleware to Middleware stack manually, and create setting script.

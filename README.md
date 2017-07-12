@@ -101,14 +101,14 @@ Rack::TrafficSignal.setup do |config|
   # Block to judge whether maintenance mode should be skipped.
   # For example, you can skip maintenance mode with specific path or internal access.
   config.skip_by do |env|
-    Rack::TrafficSignal.skip_path?(env) || Rack::TrafficSignal.internal_access?
+    Rack::TrafficSignal.skip_path?(env) || Rack::TrafficSignal.internal_access?(env)
   end
 
   # Block to judge whether maintenance mode should be skipped with warning.
   # For example, you can skip maintenance mode with specific path or internal access.
   # Warn by add 'X-RACK-TRAFFIC-SIGNAL-MAINTENANCE' to response header.
   config.skip_with_warning_by do |env|
-    Rack::TrafficSignal.skip_path?(env) || Rack::TrafficSignal.internal_access?
+    Rack::TrafficSignal.skip_path?(env) || Rack::TrafficSignal.internal_access?(env)
   end
 end
 ```

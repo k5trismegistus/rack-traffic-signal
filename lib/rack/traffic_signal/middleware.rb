@@ -61,6 +61,7 @@ module Rack
 
       def maintenance_application(method, path)
         enabled_maintenance_mode = config.maintenance_status
+        return nil if enabled_maintenance_mode.length == 0
 
         enabled_cfg = if enabled_maintenance_mode.include? :all
             config.maintenance_group.values.inject([]) do |a, p|

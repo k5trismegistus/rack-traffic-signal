@@ -82,7 +82,7 @@ Rack::TrafficSignal.setup do |config|
         { methods: [:post], path: "/users" }
       ],
       update: [
-        { methods: [:put], path: %r{/users/\d+}}
+        { methods: [:put], path: %r{/users/\d+}, status: 404, body: { meta: '404' }.to_json }
       ]
     }
   }

@@ -9,7 +9,10 @@ module Rack
                     :skip_paths,
                     :default_status,
                     :default_content_type,
-                    :default_body
+                    :default_body,
+                    :secret_word,
+                    :skip_proc,
+                    :skip_with_warning_proc
 
       def initialize
         @internal_ips = []
@@ -17,6 +20,7 @@ module Rack
         @default_status = 503
         @default_content_type = 'application/json'
         @default_body = ''
+        @secret_word = ''
         @skip_paths = [/^\/assets/]
         @maintenance_status_proc = ->{ [] }
         @skip_proc = ->(env){ false }
@@ -45,16 +49,8 @@ module Rack
         @skip_proc = block
       end
 
-      def skip?(env)
-        @skip_proc.call(env)
-      end
-
       def skip_with_warning_by(&block)
         @skip_with_warning_proc = block
-      end
-
-      def skip_with_warning?(env)
-        @skip_with_warning_proc.call(env)
       end
 
       private

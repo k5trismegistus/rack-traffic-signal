@@ -14,11 +14,23 @@ module Rack
       @config ||= Config.new
     end
 
+    def self.skip?(env)
+      config.skip_proc.call(env)
+    end
+
+    def self.skip_with_warning?(env)
+      config.skip_with_warning_proc.call(env)
+    end
+
     def self.internal_access?(env)
       remote_ip = IPAddress(request_from(env))
       config.internal_ips
         .map { |internal_ip| IPAddress(internal_ip) }
         .any? { |internal_ip| internal_ip.include?(remote_ip) if remote_ip.class == internal_ip.class }
+    end
+
+    def self.has_secret_word?(env)
+      env.fetch('HTTP_X_RACK_TRAFFIC_SIGNAL_SECRET', nil) == config.secret_word
     end
 
     def self.skip_path?(env)

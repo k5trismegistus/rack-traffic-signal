@@ -8,6 +8,28 @@ RSpec.describe Rack::TrafficSignal do
     end
   end
 
+  describe '.has_secret_word' do
+    let(:secret) { 'secret' }
+    let(:env) { { 'X-RACK-TRAFFIC-SIGNAL-SECRET' => secret} }
+
+    before do
+      Rack::TrafficSignal.setup do |config|
+        config.secret_word = 'secret'
+      end
+    end
+
+    subject { Rack::TrafficSignal.has_secret_word?(env) }
+
+    context 'has secret' do
+      it { expect(subject).to be_truthy }
+    end
+
+    context 'does not have secret' do
+      let(:secret) { '' }
+      it { expect(subject).to be_falsey }
+    end
+  end
+
   describe '.internal_access?' do
     let(:internal_ips) { [] }
     let(:remote_addr) { '' }

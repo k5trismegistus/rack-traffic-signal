@@ -14,6 +14,14 @@ module Rack
       @config ||= Config.new
     end
 
+    def self.skip?(env)
+      config.skip_proc.call(env)
+    end
+
+    def self.skip_with_warning?(env)
+      config.skip_with_warning_proc.call(env)
+    end
+
     def self.internal_access?(env)
       remote_ip = IPAddress(request_from(env))
       config.internal_ips

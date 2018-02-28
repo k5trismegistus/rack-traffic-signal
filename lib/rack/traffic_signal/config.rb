@@ -9,7 +9,9 @@ module Rack
                     :skip_paths,
                     :default_status,
                     :default_content_type,
-                    :default_body
+                    :default_body,
+                    :skip_proc,
+                    :skip_with_warning_proc
 
       def initialize
         @internal_ips = []
@@ -45,16 +47,8 @@ module Rack
         @skip_proc = block
       end
 
-      def skip?(env)
-        @skip_proc.call(env)
-      end
-
       def skip_with_warning_by(&block)
         @skip_with_warning_proc = block
-      end
-
-      def skip_with_warning?(env)
-        @skip_with_warning_proc.call(env)
       end
 
       private

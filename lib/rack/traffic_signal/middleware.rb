@@ -8,7 +8,7 @@ module Rack
       end
 
       def call(env)
-        return @app.call(env) if config.skip?(env)
+        return @app.call(env) if Rack::TrafficSignal.skip?(env)
         method = env['REQUEST_METHOD'].downcase.to_sym
         path = env['PATH_INFO']
         path = path.chop if path != '/' && path[-1] == '/'
@@ -16,7 +16,7 @@ module Rack
         applied_config = maintenance_application(method, path)
 
         if applied_config
-          if config.skip_with_warning?(env)
+          if Rack::TrafficSignal.skip_with_warning?(env)
             @app.call(env).tap do |status, headers, body|
               headers['X-RACK-TRAFFIC-SIGNAL-MAINTENENCE'] = '1'
             end

@@ -106,7 +106,7 @@ describe  Rack::TrafficSignal::Middleware do
   end
 
   describe 'Skipping maintenance mode' do
-    context 'config.skip? returned true' do
+    context 'skip? returned true' do
       before do
         Rack::TrafficSignal.setup do |config|
           config.maintenance_status_by do
@@ -128,7 +128,7 @@ describe  Rack::TrafficSignal::Middleware do
   end
 
   describe 'Skipping maintenance mode with warning' do
-    context 'config.skip? returned true' do
+    context 'skip? returned true' do
       before do
         Rack::TrafficSignal.setup do |config|
           config.maintenance_status_by do
@@ -163,7 +163,7 @@ describe  Rack::TrafficSignal::Middleware do
         end
       end
 
-      it 'should return application response' do
+      it 'should not return application response' do
         expect(subject.status).to eq(503)
       end
     end
@@ -180,8 +180,7 @@ describe  Rack::TrafficSignal::Middleware do
         end
       end
 
-      it 'should return applicati
-      on response' do
+      it 'should not return application response' do
         expect(subject.status).to eq(503)
       end
     end
@@ -198,7 +197,7 @@ describe  Rack::TrafficSignal::Middleware do
         end
       end
 
-      it 'should return application response' do
+      it 'should not return application response' do
         expect(subject.status).to eq(503)
       end
     end

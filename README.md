@@ -57,6 +57,11 @@ Rack::TrafficSignal.setup do |config|
   # Only add path to this option, mantenance mode is not skipped.
   config.skip_paths = [/^\/users\/12345/]
 
+  # This config is used to skip_path? method.
+  # Only add path to this option, mantenance mode is not skipped.
+  # If request header has `X-RACK-TRAFFIC-SIGNAL-SECRET=<secret word>`, Rack::TrafficSignal.has_secret returns true.
+  config.secret_word = 'secret'
+
   # Default setting
   config.default_status = 503
   config.default_content_type = 'application/json'

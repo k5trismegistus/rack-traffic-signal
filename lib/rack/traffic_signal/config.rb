@@ -10,6 +10,7 @@ module Rack
                     :default_status,
                     :default_content_type,
                     :default_body,
+                    :secret_word,
                     :skip_proc,
                     :skip_with_warning_proc
 
@@ -19,6 +20,7 @@ module Rack
         @default_status = 503
         @default_content_type = 'application/json'
         @default_body = ''
+        @secret_word = ''
         @skip_paths = [/^\/assets/]
         @maintenance_status_proc = ->{ [] }
         @skip_proc = ->(env){ false }

@@ -29,6 +29,10 @@ module Rack
         .any? { |internal_ip| internal_ip.include?(remote_ip) if remote_ip.class == internal_ip.class }
     end
 
+    def self.has_secret_word?(env)
+      env.fetch('HTTP_X_RACK_TRAFFIC_SIGNAL_SECRET', nil) == config.secret_word
+    end
+
     def self.skip_path?(env)
       path = env['PATH_INFO']
       path = path.chop if path[-1] == '/'
